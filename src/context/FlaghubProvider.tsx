@@ -51,7 +51,7 @@ export const FlaghubProvider = ({
         setHasFetchedFlags(true);
       }
     })();
-  }, [apiKey, workspaceId]);
+  }, [apiKey, apiVersion, workspaceId]);
 
   if (!hasFetchedFlags) return loading ?? <div>Loading...</div>;
 
