@@ -1,6 +1,6 @@
 {
   "name": "flaghub-reactjs",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Flaghub ReactJS integration.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -14,7 +14,8 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
-    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\""
+    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
+    "prepublish": "yarn prettier && yarn lint && yarn build"
   },
   "files": [
     "dist",
@@ -28,9 +29,6 @@
   ],
   "author": "Flaghub",
   "license": "ISC",
-  "dependencies": {
-    "tslib": "^2.6.1"
-  },
   "devDependencies": {
     "@types/react": "^18.2.20",
     "@typescript-eslint/eslint-plugin": "^6.3.0",

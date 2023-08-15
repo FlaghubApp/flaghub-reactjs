@@ -18,7 +18,7 @@ export const FlaghubProvider = ({
   const { apiKey, workspaceId } = getFlaghubConfig();
 
   useEffect(() => {
-    if (!window) return;
+    if (typeof window === 'undefined') return;
 
     window.flaghub = {
       setFeatureActive: (reference: string) =>
@@ -53,7 +53,7 @@ export const FlaghubProvider = ({
     })();
   }, [apiKey, apiVersion, workspaceId]);
 
-  if (!hasFetchedFlags) return loading ?? <div>Loading...</div>;
+  if (!hasFetchedFlags) return loading ?? <></>;
 
   return <FlaghubContext.Provider value={{ flags }}>{children}</FlaghubContext.Provider>;
 };
