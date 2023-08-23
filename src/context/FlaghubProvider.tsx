@@ -7,10 +7,12 @@ export const FlaghubProvider = ({
   children,
   loading,
   apiVersion = 1,
+  environment = 'default',
 }: {
   children?: React.ReactNode;
   loading?: React.ReactNode;
   apiVersion?: number;
+  environment?: string;
 }) => {
   const [flags, setFlags] = useState<Feature[]>([]);
   const [hasFetchedFlags, setHasFetchedFlags] = useState<boolean>(false);
@@ -37,12 +39,15 @@ export const FlaghubProvider = ({
   useEffect(() => {
     (async () => {
       try {
-        const result = await fetch(`https://api.flaghub.io/v${apiVersion}/workspaces/${workspaceId}/flags`, {
-          headers: new Headers({
-            Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          }),
-        });
+        const result = await fetch(
+          `https://api.flaghub.io/v${apiVersion}/workspaces/${workspaceId}/flags?env=${environment}`,
+          {
+            headers: new Headers({
+              Authorization: `Bearer ${apiKey}`,
+              'Content-Type': 'application/json',
+            }),
+          },
+        );
 
         const parsedResult: { flags: Feature[] } = await result.json();
 
@@ -51,7 +56,7 @@ export const FlaghubProvider = ({
         setHasFetchedFlags(true);
       }
     })();
-  }, [apiKey, apiVersion, workspaceId]);
+  }, [apiKey, apiVersion, environment, workspaceId]);
 
   if (!hasFetchedFlags) return loading ?? <></>;
 
